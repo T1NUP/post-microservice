@@ -24,76 +24,69 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
-	
+
 	@GetMapping("/post/users/posts")
 	public List<Post> getAll() {
 		return postService.findAll();
 	}
-	
+
 	@GetMapping("/post/users/{username}/posts")
-	public List<Post> getAllUserPost(@PathVariable String username){
+	public List<Post> getAllUserPost(@PathVariable String username) {
 		return postService.getAllUserPost(username);
 	}
-	
+
 	@GetMapping("/post/users/{username}/posts/{id}")
-	public Post getPost(@PathVariable String username, @PathVariable long id){
+	public Post getPost(@PathVariable String username, @PathVariable long id) {
 		return postService.getPost(username, id);
 	}
-	
-	@GetMapping("/post/users/{username}/posts/{id}/comments")
-	public List<PostComment> getComments(@PathVariable String username, @PathVariable long id){
-		return postService.getComments(username,id);
-	}
-	
-	@PostMapping("/post/users/{username}/posts/{id}/comments")
-	public ResponseEntity<Void> addComent(@PathVariable String username, @PathVariable long id, @RequestBody PostComment comment){
 
-//		Post updatedPost = postJpaRepository.findById(id).get().addComment(comment);
-//		updatedPost.setUsername(username);
-//
-//		postJpaRepository.save(updatedPost); // here lies the problem
+	@GetMapping("/post/users/{username}/posts/{id}/comments")
+	public List<PostComment> getComments(@PathVariable String username, @PathVariable long id) {
+		return postService.getComments(username, id);
+	}
+
+	@PostMapping("/post/users/{username}/posts/{id}/comments")
+	public ResponseEntity<Void> addComent(@PathVariable String username, @PathVariable long id,
+			@RequestBody PostComment comment) {
 		postService.addPostComment(username, id, comment);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@DeleteMapping("/post/users/{username}/posts/{id}")
 	public ResponseEntity<Void> deletePost(@PathVariable String username, @PathVariable long id) {
 		postService.deletePost(username, id);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@PutMapping("/post/users/{username}/posts/{id}")
-	public ResponseEntity<Post> updatePost(
-			@PathVariable String username,
-			@PathVariable long id, @RequestBody Post post){
-		
+	public ResponseEntity<Post> updatePost(@PathVariable String username, @PathVariable long id,
+			@RequestBody Post post) {
+
 		postService.updatePost(username, id, post);
-		
+
 		return new ResponseEntity<Post>(post, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/post/users/{username}/posts")
-	public ResponseEntity<Void> createPost(
-			@PathVariable String username, @RequestBody Post post){
-		
+	public ResponseEntity<Void> createPost(@PathVariable String username, @RequestBody Post post) {
 
 		URI uri = postService.createPost(username, post);
-		
+
 		return ResponseEntity.created(uri).build();
 	}
-	
+
 	@PostMapping("/post/like")
-	public ResponseEntity<String> addLike(@RequestBody PostLike like){
-		
-		String status= postService.addLike(like);
+	public ResponseEntity<String> addLike(@RequestBody PostLike like) {
+
+		String status = postService.addLike(like);
 		return ResponseEntity.ok(status);
 	}
-	
+
 	@PostMapping("/post/unlike")
-	public ResponseEntity<String> unLike(@RequestBody PostLike like){
-		
+	public ResponseEntity<String> unLike(@RequestBody PostLike like) {
+
 		postService.unLikePost(like);
-		
+
 		return ResponseEntity.ok("Done!");
 	}
 }

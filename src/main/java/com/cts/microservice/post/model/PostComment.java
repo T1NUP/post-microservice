@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Embeddable
 public class PostComment {
-    @GeneratedValue
-    private Long id;
+//    @GeneratedValue
+//    private Long id;
     private String username;
     private String description;
     private Date targetDate;
