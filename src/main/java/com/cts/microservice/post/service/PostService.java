@@ -23,6 +23,10 @@ public class PostService {
 		return pRepository.findAll();
 	}
 	
+	public void deletePost(Long id) {
+		pRepository.deleteById(id);
+	}
+	
 	public List<Post> getAllUserPost(@PathVariable String username){
 		return pRepository.findByUsername(username);
 	}

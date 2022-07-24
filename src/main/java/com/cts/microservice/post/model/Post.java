@@ -34,8 +34,12 @@ public class Post {
 	@CollectionTable(name="post_like")
 	private List<PostLike> likes;
 
-	public Post() {
+	@ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name="post_report")
+	private List<PostReport> reports ;
 
+	public Post() {
+		
 	}
 
 
@@ -48,10 +52,29 @@ public class Post {
 		this.isDone = isDone;
 		this.comments = new ArrayList<PostComment>();
 		this.likes = new ArrayList<PostLike>();
+		this.reports = new ArrayList<PostReport>();
+	}
+	
+	public List<PostReport> getReports(){
+		return this.reports;
+	}
+
+
+	public void setReports(List<PostReport> reports) {		
+		this.reports.addAll(reports);
 	}
 	
 	public Post addLikes(PostLike like) {
 		this.likes.add(like);
+		return this;
+	}
+
+	public void removeReportObject(PostReport report) {
+		this.reports.remove(report);
+	}
+	
+	public Post addReports(PostReport report) {
+		this.reports.add(report);
 		return this;
 	}
 	
