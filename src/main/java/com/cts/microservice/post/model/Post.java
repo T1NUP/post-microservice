@@ -28,15 +28,15 @@ public class Post {
 
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name="post_comment")
-	private List<PostComment> comments;
+	private List<PostComment> comments = new ArrayList<>();
 	
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name="post_like")
-	private List<PostLike> likes;
+	private List<PostLike> likes = new ArrayList<>();
 
 	@ElementCollection(fetch = FetchType.LAZY)
 	@CollectionTable(name="post_report")
-	private List<PostReport> reports ;
+	private List<PostReport> reports = new ArrayList<>() ;
 
 	public Post() {
 		

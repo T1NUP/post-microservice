@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.cts.microservice.post.model.PostLike;
 import com.cts.microservice.post.service.PostService;
 
 @RestController
+@CrossOrigin
 public class PostController {
 
 	@Autowired
@@ -80,12 +82,26 @@ public class PostController {
 		return ResponseEntity.created(uri).build();
 	}
 
+	/**
+	*like API 
+	*@author Punit
+	*@param LikeDTO
+	*@return {@link ResponseEntity}
+	*/
+	
 	@PostMapping("/post/like")
 	public ResponseEntity<String> addLike(@RequestBody PostLike like) {
 
 		String status = postService.addLike(like);
 		return ResponseEntity.ok(status);
 	}
+	
+	/**
+	*unlike API 
+	*@author Punit
+	*@param LikeDTO
+	*@return {@link ResponseEntity}
+	*/
 
 	@PostMapping("/post/unlike")
 	public ResponseEntity<String> unLike(@RequestBody PostLike like) {
