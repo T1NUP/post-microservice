@@ -90,6 +90,11 @@ public class Post {
 		this.likes.remove(like);
 	}
 	
+	//TODO
+	public void removeReports() {
+		this.reports.clear();
+	}
+	
 	public Post addComment(PostComment comment) {
 		this.comments.add(comment);
 		return this;

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,9 +33,9 @@ public class PostReportController {
 		return postReportService.reportPost(postReport);
 	}
 	
-//	@PostMapping("/post/unreport")
-//	public ResponseEntity<Void> unreportPost(@RequestBody PostReport postReport){
-//		postReportService.unreportPost(postReport);
-//		return ResponseEntity.noContent().build();
-//	}
+	@PutMapping("/post/unreport/{id}")
+	public ResponseEntity<Void> unreportPost(@PathVariable Long id){
+		postReportService.unreportPost(id);
+		return ResponseEntity.noContent().build();
+	}
 }

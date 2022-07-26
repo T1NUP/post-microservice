@@ -38,9 +38,11 @@ public class PostReportService {
 		}	
 	}
 	
-//	public void unreportPost(PostReport report) {
-//
-//		Post post= postRepository.findById(report.getIdOfPost()).get();
+	public void unreportPost(Long id) {
+		
+		Post post= postRepository.findById(id).get();
+		post.removeReports();
+		postRepository.save(post);
 //		List<PostReport> reports= post.getReports();
 //		PostReport pr = null;
 //		for(PostReport r: reports) {
@@ -54,13 +56,13 @@ public class PostReportService {
 //			post.removeReportObject(report);
 //			postRepository.save(post);
 //		}
-//	}
+	}
 	
 	public List<Post> reportedPosts(){
 		List<Post> reportedPosts =  postRepository.findAll();
 		List<Post> result = new ArrayList<>();
 		for(int i=0;i<reportedPosts.size();i++) {
-			if(reportedPosts.get(i).getReports().size() >= 2) {
+			if(reportedPosts.get(i).getReports().size() >= 1) {
 				result.add(reportedPosts.get(i));
 			}
 		}
